@@ -23,27 +23,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      // BlocProvider(create: (_)=>CounterBloc()),
-      BlocProvider(create: (_)=>SwitchBloc()),
-      BlocProvider(create: (_)=>ImagePickerBloc()),
-      BlocProvider(create: (_)=>TodoBloc()),
-      BlocProvider(create: (_)=>FavouriteItemsBloc(Repository())),
-      BlocProvider(create: (_)=>PostsBloc(),),
-    ], child: MaterialApp(
-      title: 'Bloc Tutorial',
-      // themeMode: ThemeMode.dark,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        // brightness: Brightness.dark
+    return MultiBlocProvider(
+      providers: [
+        // BlocProvider(create: (_)=>CounterBloc()),
+        BlocProvider(create: (_) => SwitchBloc()),
+        BlocProvider(create: (_) => ImagePickerBloc()),
+        BlocProvider(create: (_) => TodoBloc()),
+        BlocProvider(create: (_) => FavouriteItemsBloc(Repository())),
+        BlocProvider(create: (_) => PostsBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Bloc Tutorial',
+        // themeMode: ThemeMode.dark,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+          // brightness: Brightness.dark
+        ),
+        // home: const PostsView(),
+        // home: const FavouriteItemsView(),
+        // home: const TodoView(),
+        // home: const ImagePickerView(),
+        // home: const SwitchAndSliderExample(),
+        home: const CounterView(),
       ),
-      // home: const PostsView(),
-      // home: const FavouriteItemsView(),
-      // home: const TodoView(),
-      // home: const ImagePickerView(),
-      // home: const SwitchAndSliderExample(),
-      home: const CounterView(),
-    ));
+    );
   }
 }
