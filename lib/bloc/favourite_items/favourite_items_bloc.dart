@@ -23,7 +23,7 @@ class FavouriteItemsBloc extends Bloc<FavouriteItemsEvent, FavouriteItemsState> 
   /// fetch list of items
   void _fetchFavouriteItems(FetchFavouriteItemsEvent event, Emitter<FavouriteItemsState> emit) async{
     favItems = await repository.fetchFavouriteItems();
-    emit(state.copyWith(favItems:  List.from(favItems),apiStatus: ApiStatus.completed,));
+    emit(state.copyWith(favItems:  List.from(favItems),apiStatus: ApiStatus.success,));
   }
 
   /// mark item as favourite

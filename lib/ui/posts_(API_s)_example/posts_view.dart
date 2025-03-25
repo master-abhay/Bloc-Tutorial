@@ -36,13 +36,15 @@ class _PostsViewState extends State<PostsView> {
       builder: (context, state) {
         final ApiStatus apiStatus = state.apiStatus;
         switch (apiStatus) {
+          case ApiStatus.initial:
+            return const Center(child: Text("Pull down to refresh or show refresh indicator"));
           case ApiStatus.loading:
             return const Center(child: CircularProgressIndicator());
           case ApiStatus.error:
             return  Center(
               child: Text(state.message),
             );
-          case ApiStatus.completed:
+          case ApiStatus.success:
             return Padding(
               padding: kPadding,
               child: Column(

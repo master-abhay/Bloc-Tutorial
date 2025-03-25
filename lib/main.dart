@@ -8,6 +8,7 @@ import 'package:bloc_tutorial/repository/repository.dart';
 import 'package:bloc_tutorial/ui/counter_example/counter_view.dart';
 import 'package:bloc_tutorial/ui/favourite_items_example/favourite_items_view.dart';
 import 'package:bloc_tutorial/ui/image_picker_example/image_picker_view.dart';
+import 'package:bloc_tutorial/ui/login/login_view.dart';
 import 'package:bloc_tutorial/ui/posts_(API_s)_example/posts_view.dart';
 import 'package:bloc_tutorial/ui/todo_example/todo_view.dart';
 import 'package:flutter/material.dart';
@@ -41,12 +42,13 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           // brightness: Brightness.dark
         ),
+        home: const LoginView(),
         // home: const PostsView(),
         // home: const FavouriteItemsView(),
         // home: const TodoView(),
         // home: const ImagePickerView(),
         // home: const SwitchAndSliderExample(),
-        home: const CounterView(),
+        // home: const CounterView(),
       ),
     );
   }

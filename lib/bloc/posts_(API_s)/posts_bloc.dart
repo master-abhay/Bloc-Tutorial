@@ -19,7 +19,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
   /// fetch posts
   _getPosts(GetPostsEvent event, Emitter<PostsState> emit)async{
     try{
-     emit(state.copyWith(apiStatus: ApiStatus.completed,message: "Success",postsList:  await repository.getPosts(),),);
+     emit(state.copyWith(apiStatus: ApiStatus.success,message: "Success",postsList:  await repository.getPosts(),),);
     }
     catch(e){
       emit(state.copyWith(apiStatus: ApiStatus.error,message: e.toString(),),);
