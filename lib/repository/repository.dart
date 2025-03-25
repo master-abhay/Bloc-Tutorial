@@ -1,3 +1,4 @@
+import 'package:bloc_tutorial/models/common_models/common_post_request_model.dart';
 import 'package:bloc_tutorial/models/favourite_item_model.dart';
 import 'package:bloc_tutorial/models/posts_(API_s)/get_posts_model.dart';
 import 'package:bloc_tutorial/network/dio/DioBaseApiServices.dart';
@@ -36,4 +37,21 @@ class Repository {
      return [];
    }
   }
+
+  /// login
+  Future<CommonPostRequestModel> login({required dynamic body}) async {
+    try {
+      final response = await _apiServices.dioPostApiService(
+        url: AppUrls.login,
+        headers: {},
+        body: body,
+      );
+      return CommonPostRequestModel.fromJson(response);
+    } catch (e, stackTrace) {
+      debugPrint('Error in login: $e');
+      debugPrint('StackTrace: $stackTrace');
+      throw e;
+    }
+  }
+
 }
