@@ -13,35 +13,62 @@ class CounterView extends StatefulWidget {
 }
 
 class _CounterViewState extends State<CounterView> {
+
+  late CounterBloc _counterBloc;
+
+  @override
+  void initState() {
+  _counterBloc = CounterBloc();
+  super.initState();
+  }
+
+  @override
+  void dispose() {
+  _counterBloc.close();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    debugPrint("Building build");
+    return BlocProvider(create: (_)=>_counterBloc,
+    child: Scaffold(
       appBar: AppBar(title: const Text("Counter View"),),
       body: _buildUi(),
+    ),
     );
   }
 
-  Widget _buildUi() {
 
+  Widget _buildUi() {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-
-
         BlocBuilder<CounterBloc,CounterStates>(builder: (context,state){
           return Center(child: Text(state.counter.toString(),style: const TextStyle(color: Colors.green,fontSize: 50,fontWeight: FontWeight.bold,),));
         }),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            BlocBuilder<CounterBloc,CounterStates>(
+              buildWhen: (prev,curr)=>false,
+              builder: (context,state){
+            debugPrint("Building -");
+            return MaterialButton(onPressed: (){context.read<CounterBloc>().add(DecrementCounterEvent());},color: Colors.red, child: const Text("Decrement",style: TextStyle(color: Colors.white)),);
+          }),
 
+            BlocBuilder<CounterBloc,CounterStates>(
+                buildWhen: (prev,curr)=>false,
+                builder: (context,state){
+              debugPrint("Building +");
+              return MaterialButton(onPressed: (){context.read<CounterBloc>().add(IncrementCounterEvent());},color: Colors.green, child: const Text("Increment",style: TextStyle(color: Colors.white)),);
+            }),
 
-          MaterialButton(onPressed: (){context.read<CounterBloc>().add(DecrementCounterEvent());},color: Colors.red, child: const Text("Decrement",style: TextStyle(color: Colors.white)),),
-          MaterialButton(onPressed: (){context.read<CounterBloc>().add(IncrementCounterEvent());},color: Colors.green, child: const Text("Increment",style: TextStyle(color: Colors.white)),),
-        ],)
+        ],
+        ),
       ],
     );
   }

@@ -39,6 +39,8 @@ dependencies:
   bloc: ^8.1.4
   equatable: ^2.0.7
   image_picker:
+  dio:
+  logger:
 
 dev_dependencies:
   flutter_test:
