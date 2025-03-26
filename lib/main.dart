@@ -4,7 +4,10 @@ import 'package:bloc_tutorial/bloc/image_picker/image_picker_bloc.dart';
 import 'package:bloc_tutorial/bloc/posts_(API_s)/posts_bloc.dart';
 import 'package:bloc_tutorial/bloc/switch_and_slider/switch_bloc.dart';
 import 'package:bloc_tutorial/bloc/todo/todo_bloc.dart';
+import 'package:bloc_tutorial/core/services/navigation_services/navigation_services.dart';
+import 'package:bloc_tutorial/core/services/navigation_services/route_names.dart';
 import 'package:bloc_tutorial/repository/repository.dart';
+import 'package:bloc_tutorial/test.dart';
 import 'package:bloc_tutorial/ui/counter_example/counter_view.dart';
 import 'package:bloc_tutorial/ui/favourite_items_example/favourite_items_view.dart';
 import 'package:bloc_tutorial/ui/image_picker_example/image_picker_view.dart';
@@ -13,6 +16,8 @@ import 'package:bloc_tutorial/ui/posts_(API_s)_example/posts_view.dart';
 import 'package:bloc_tutorial/ui/todo_example/todo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'core/services/navigation_services/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +40,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        navigatorKey: NavigationServices.instance.navigationStateKey,
         title: 'Bloc Tutorial',
         // themeMode: ThemeMode.dark,
         theme: ThemeData(
@@ -42,7 +48,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           // brightness: Brightness.dark
         ),
-        home: const LoginView(),
+        initialRoute: RouteNames.testView,
+        onGenerateRoute: Routes.onGenerateRoute,
+
+        // home: const TestView(),
+        // home: const LoginView(),
         // home: const PostsView(),
         // home: const FavouriteItemsView(),
         // home: const TodoView(),

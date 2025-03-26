@@ -44,7 +44,7 @@ class _LoginViewState extends State<LoginView> {
       create: (_) => _loginBloc,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Login"),
+          title:  const Text("Login View"),
         ),
         body: _buildUi(context),
       ),
