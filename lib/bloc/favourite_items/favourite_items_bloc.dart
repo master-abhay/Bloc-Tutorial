@@ -3,7 +3,7 @@ import 'package:bloc_tutorial/bloc/favourite_items/favourite_items_event.dart';
 import 'package:bloc_tutorial/bloc/favourite_items/favourite_items_state.dart';
 import 'package:bloc_tutorial/core/constants/enum.dart';
 import 'package:bloc_tutorial/models/favourite_item_model.dart';
-import 'package:bloc_tutorial/repository/repository.dart';
+import 'package:bloc_tutorial/repository/repositories/repository.dart';
 
 class FavouriteItemsBloc extends Bloc<FavouriteItemsEvent, FavouriteItemsState> {
   List<FavourItemItemModel> favItems = [];

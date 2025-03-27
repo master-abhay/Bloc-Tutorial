@@ -1,9 +1,13 @@
+import 'package:bloc_tutorial/core/controllers/session_controller/base_session_controller.dart';
+import 'package:bloc_tutorial/core/controllers/session_controller/session_controller.dart';
+import 'package:bloc_tutorial/core/services/navigation_services/base_navigation_services.dart';
 import 'package:bloc_tutorial/core/services/navigation_services/navigation_services.dart';
 import 'package:bloc_tutorial/core/services/navigation_services/route_names.dart';
 import 'package:bloc_tutorial/models/freezed_example/user_model.dart';
 import 'package:flutter/material.dart';
 
 import 'core/services/navigation_services/routes.dart';
+import 'core/services/service_locator.dart';
 
 class TestView extends StatefulWidget {
   const TestView({super.key});
@@ -13,8 +17,24 @@ class TestView extends StatefulWidget {
 }
 
 class _TestViewState extends State<TestView> {
+  @override
+  void initState() {
+    try {
 
-  final userModelJson =   {
+      getIt<BaseSessionController>().getSessionData().then((result) {
+        result
+            ? getIt<BaseNavigationServices>().pushReplacementNamed(route: RouteNames.counterView)
+            : getIt<BaseNavigationServices>().pushReplacementNamed(route: RouteNames.loginView);
+      },
+      );
+    } catch (e) {
+      print("something went wrong while logging splash screen");
+    }
+
+    super.initState();
+  }
+
+  final userModelJson = {
     "id": 1,
     "name": 'Abhay Kumar',
     "username": "Bret",
@@ -24,10 +44,7 @@ class _TestViewState extends State<TestView> {
       "suite": "Apt. 556",
       "city": "Gwenborough",
       "zipcode": "92998-3874",
-      "geo": {
-        "lat": "-37.3159",
-        "lng": "81.1496"
-      }
+      "geo": {"lat": "-37.3159", "lng": "81.1496"}
     },
     "phone": "1-770-736-8031 x56442",
     "website": "hildegard.org",
@@ -41,24 +58,17 @@ class _TestViewState extends State<TestView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Test View"),),
-      floatingActionButton: FloatingActionButton(onPressed: (){
-
-        NavigationServices.instance.pushNamed(route: RouteNames.loginView);
-
-
-        // final personModel = UserModel.fromJson(userModelJson);
-        //
-        // print("Id: ${personModel.id}");
-        // print("Address: ${personModel.address.geo.lat}");
-
-
-
-
-
-
-
-      },),
+      appBar: AppBar(
+        title: const Text("Test View"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // final personModel = UserModel.fromJson(userModelJson);
+          //
+          // print("Id: ${personModel.id}");
+          // print("Address: ${personModel.address.geo.lat}");
+        },
+      ),
     );
   }
 }

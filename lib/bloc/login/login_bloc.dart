@@ -1,16 +1,21 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:bloc_tutorial/core/constants/enum.dart';
-import 'package:bloc_tutorial/repository/repository.dart';
+import 'package:bloc_tutorial/core/controllers/session_controller/base_session_controller.dart';
+import 'package:bloc_tutorial/core/controllers/session_controller/session_controller.dart';
+import 'package:bloc_tutorial/models/common_models/common_post_request_model.dart';
+import 'package:bloc_tutorial/repository/base_repository.dart';
+import 'package:bloc_tutorial/repository/repositories/repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../core/services/service_locator.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
-  final Repository _repository = Repository();
 
   LoginBloc() : super(const LoginState()) {
     on<LoginButtonEvent>(_login);
@@ -23,7 +28,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
 
       /// make api call
-      await _repository.login(body: {'email':event.email,'password':event.password});
+     CommonPostRequestModel response =  await getIt<BaseRepository>().login(body: {'email':event.email,'password':event.password});
+
+     /// save session data
+      getIt<BaseSessionController>().saveSessionData(userData: response);
       
 
       /// set api state to success

@@ -4,7 +4,7 @@ import 'package:bloc_tutorial/bloc/posts_(API_s)/posts_state.dart';
 import 'package:bloc_tutorial/core/constants/enum.dart';
 import 'package:bloc_tutorial/models/posts_(API_s)/get_posts_model.dart';
 
-import '../../repository/repository.dart';
+import '../../repository/repositories/repository.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
 

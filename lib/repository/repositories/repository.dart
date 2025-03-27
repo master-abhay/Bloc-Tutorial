@@ -1,17 +1,16 @@
 import 'package:bloc_tutorial/models/common_models/common_post_request_model.dart';
 import 'package:bloc_tutorial/models/favourite_item_model.dart';
+import 'package:bloc_tutorial/models/get_movies_model/get_movies_model.dart';
 import 'package:bloc_tutorial/models/posts_(API_s)/get_posts_model.dart';
 import 'package:bloc_tutorial/network/dio/DioBaseApiServices.dart';
 import 'package:bloc_tutorial/network/dio/DioNetworkApiServices.dart';
+import 'package:bloc_tutorial/repository/base_repository.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../core/constants/app_urls.dart';
+import '../../core/constants/app_urls.dart';
 
-class Repository {
-
-  final DioBaseApiServices _apiServices = DioNetworkApiServices();
-
-
+class Repository extends BaseRepository {
+  @override
   Future<List<FavourItemItemModel>> fetchFavouriteItems() async {
     await Future.delayed(const Duration(seconds: 3));
     return List.of(_generateListOfFavouriteItem(20));
@@ -24,24 +23,21 @@ class Repository {
     });
   }
 
-
-
-
-  /// get posts
+  @override
   Future<List<GetPostsModel>> getPosts() async {
-   try{
-     final response = await _apiServices.dioGetApiService(url: AppUrls.getPosts, headers: {},);
-     return List.from(response.map((element)=>GetPostsModel.fromJson(element)).toList());
-   }catch(e){
-     debugPrint(e.toString());
-     return [];
-   }
+    try {
+      final response = await apiServices.dioGetApiService(url: AppUrls.getPosts, headers: {},);
+      return List.from(response.map((element) => GetPostsModel.fromJson(element)).toList());
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
   }
 
-  /// login
+  @override
   Future<CommonPostRequestModel> login({required dynamic body}) async {
     try {
-      final response = await _apiServices.dioPostApiService(
+      final response = await apiServices.dioPostApiService(
         url: AppUrls.login,
         headers: {},
         body: body,
@@ -54,4 +50,9 @@ class Repository {
     }
   }
 
+  @override
+  Future<GetMoviesModel> getMovies() async{
+      final response = await apiServices.dioGetApiService(url: AppUrls.getMovies, headers: {},);
+      return GetMoviesModel.fromJson(response);
+  }
 }

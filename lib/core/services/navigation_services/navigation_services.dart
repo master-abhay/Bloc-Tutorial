@@ -1,34 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NavigationServices {
-  /// private constructor of navigation service
-  NavigationServices._privateConstructor();
+import 'base_navigation_services.dart';
 
-  static final NavigationServices _instance = NavigationServices._privateConstructor();
+class NavigationServices extends BaseNavigationServices{
 
-  // Getter to access the singleton instance
-  static NavigationServices get instance => _instance;
-
-  // GlobalKey for navigation state
-  final GlobalKey<NavigatorState> navigationStateKey = GlobalKey<NavigatorState>();
-
+  @override
   void push({required Route route}) {
     navigationStateKey.currentState?.push(route);
   }
 
+  @override
   void pushReplacement({required Route route}) {
     navigationStateKey.currentState?.pushReplacement(route);
   }
 
+  @override
   void pushNamed({required String route, Object? arguments}) {
     navigationStateKey.currentState?.pushNamed(route, arguments: arguments);
   }
 
+  @override
   void pushReplacementNamed({required String route, Object? arguments}) {
     navigationStateKey.currentState?.pushReplacementNamed(route, arguments: arguments);
   }
 
+  @override
   Object? goBack({Object? object}) {
     if (navigationStateKey.currentState!.canPop() == true) {
       navigationStateKey.currentState?.pop(object);
@@ -38,7 +35,9 @@ class NavigationServices {
     return null;
   }
 
+  @override
   void goBackUntilFirstScreen() {
     navigationStateKey.currentState?.popUntil((route) => route.isFirst);
   }
+
 }

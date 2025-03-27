@@ -5,14 +5,17 @@ import 'package:flutter/material.dart';
 import '../../../ui/views_barrel.dart';
 
 class Routes {
-
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteNames.testView:
-        return _customRoute(widget:  const TestView(), /// passing arguments of object to next screen.
-        );
+        /// passing arguments of object to next screen.
+        return _customRoute(widget: const TestView(),);
       case RouteNames.loginView:
         return _customRoute(widget: const LoginView());
+      case RouteNames.counterView:
+        return _customRoute(widget: const CounterView());
+      case RouteNames.moviesView:
+        return _customRoute(widget: const MoviesView());
       default:
         return _customRoute(
           widget: const Scaffold(
@@ -37,6 +40,3 @@ class Routes {
     return CupertinoPageRoute(builder: (_) => widget);
   }
 }
-
-
-

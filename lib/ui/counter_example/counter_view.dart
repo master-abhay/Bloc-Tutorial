@@ -1,6 +1,8 @@
 import 'package:bloc_tutorial/bloc/counter/counter_bloc.dart';
 import 'package:bloc_tutorial/bloc/counter/counter_events.dart';
 import 'package:bloc_tutorial/bloc/counter/counter_states.dart';
+import 'package:bloc_tutorial/core/controllers/session_controller/base_session_controller.dart';
+import 'package:bloc_tutorial/core/services/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +36,10 @@ class _CounterViewState extends State<CounterView> {
     debugPrint("Building build");
     return BlocProvider(create: (_)=>_counterBloc,
     child: Scaffold(
-      appBar: AppBar(title: const Text("Counter View"),),
+      appBar: AppBar(title: const Text("Counter View"),automaticallyImplyLeading: true,),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        getIt<BaseSessionController>().clearSessionData();
+      }),
       body: _buildUi(),
     ),
     );

@@ -1,11 +1,14 @@
 import 'package:bloc_tutorial/bloc/login/login_bloc.dart';
 import 'package:bloc_tutorial/core/constants/app_dimensions.dart';
 import 'package:bloc_tutorial/core/constants/enum.dart';
+import 'package:bloc_tutorial/core/services/navigation_services/base_navigation_services.dart';
+import 'package:bloc_tutorial/core/services/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/components/text_fields/custom_text_field.dart';
+import '../../core/services/navigation_services/route_names.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -99,8 +102,8 @@ class _LoginViewState extends State<LoginView> {
             BlocListener<LoginBloc, LoginState>(
               listener: (context, state) {
                 if (state.apiStatus == ApiStatus.loading ||
-                    state.apiStatus == ApiStatus.error ||
-                    state.apiStatus == ApiStatus.success) {
+                    state.apiStatus == ApiStatus.error
+                    ) {
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
@@ -108,6 +111,15 @@ class _LoginViewState extends State<LoginView> {
                         content: Text(state.message),
                       ),
                     );
+                }
+                if(state.apiStatus == ApiStatus.success){
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      SnackBar(content: Text(state.message)));
+
+                  // getIt<BaseNavigationServices>().goBackUntilFirstScreen();
+                  getIt<BaseNavigationServices>().pushNamed(route: RouteNames.counterView);
                 }
               },
               child: BlocBuilder<LoginBloc, LoginState>(
