@@ -29,8 +29,7 @@ class _MoviesViewState extends State<MoviesView> {
   Widget build(BuildContext context) {
     return BlocProvider<MoviesBloc>(
       create: (_) => _moviesBloc
-        ..add(
-          GetMoviesEvent(),
+        ..add(GetMoviesEvent(),
         ),
       child: Scaffold(
         appBar: AppBar(
